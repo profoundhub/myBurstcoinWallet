@@ -2,14 +2,13 @@
 <html class="lockscreen">
     <head>
         <meta charset="UTF-8" />
-        <title data-i18n="app.title">My BURST Wallet</title>
+        <title data-i18n="app.title">BURST Wallet</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!--atcrowdfund-->
         <!--end-->
-        <!-- 
-             -->        
-        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -- >
+        <!-- <link href="https://bootswatch.com/cyborg/bootstrap.min.css" rel="stylesheet" type="text/css" />  -->
         <link href="css/bootstrap-new.min.css" rel="stylesheet" type="text/css" />   
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"  />
         <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
@@ -23,17 +22,20 @@
         <style id="user_boxes_style" type="text/css"></style>
         <!-- Reconsider this jquery input as its a multiple of the one in 3rd party folder, one posibility might be to add jquery here but remove from 3rd party
             same with the import i removed for bootstrap.js. Duplicate imports for scripts might cause some spectacular and hard to trace bugs -->
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>        
-        <!--script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js" type="text/javascript"></script-->
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>        
+        <!-- <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js" type="text/javascript"></script> -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.js" type="text/javascript"></script>        
     </head>
     <body class="lockscreen fixed">
+        <!--
         <div id="lockscreen">
             <div id="old_browser_warning" style="display:none;margin-left:auto;margin-right:auto;margin-top:200px;background:white;color:black;padding:20px;width:300px;" data-i18n="old_browser_warning">You are using an old Internet Explorer. Please update your IE or open localhost:8125 with your favorite Browser!</div>
-            <!--    -->
+            <!--
                 <div style="position:absolute;top:10px;left:10px;" id="server_select">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            <span class="text">Select Source</span> <span class="caret"></span>
+                            <span class="text">Use localhost</span> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Use localhost</a></li>
@@ -41,6 +43,7 @@
                         </ul>
                     </div>
                 </div>
+            -->
             <!--    -->
             <table id="center" style="display:none;width:100%;height:100%;" class="mainlockscreen">
                 <tr>
@@ -162,8 +165,10 @@
                         <li class="dropdown"><a href="#" data-toggle="modal" data-target="#send_message_modal" data-i18n="send_message"> Send Message</a></li>
                         <li class="dropdown show-dropdown-settings">
                         <script>
-						    $(document).ready(function() {							 
-							 $(".show-dropdown-settings").click(function() {
+						 $(document).ready(function()
+						 {							 
+							 $(".show-dropdown-settings").click(function()
+							 {
 								 $(".dropdown-menu-settings").toggle();
 								 $(".dropdown-menu-website").hide();
 							 });
@@ -176,9 +181,10 @@
 								$("body").find(".dropdown-menu-settings").hide();								
 							 });						 							 
 						 });
-						</script>                        
+						</script>
+                        
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
+                            <i class="fa fa-cog"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-settings" role="menu">
                                 <li><a href="#" class="goto-page" data-page="settings" data-i18n="settings">Settings</a></li>
@@ -5872,7 +5878,52 @@
         <script src="js/nrs.crowdfunding.js" type="text/javascript"></script>
 	    <script src="js/nsv.dividends.js" type="text/javascript"></script>   <!--additional Dividends+ code-->
 	    <script src="js/nsv.voting.js" type="text/javascript"></script>   <!--additional Dividends+ code-->
-    </body> 
+        
+        <script src="js/burst.js" type="text/javascript"></script>
+    </body>
     <!--atcrowdfund script-->
-        <script type="text/javascript"></script>        
+    <script type="text/javascript">
+        var xspacing = 16;    // Distance between each horizontal location
+        var w;                // Width of entire wave
+        var theta = 0.0;      // Start angle at 0
+        var amplitude = 75.0; // Height of wave
+        var period = 500.0;   // How many pixels before the wave repeats
+        var dx;               // Value for incrementing x
+        var yvalues;  // Using an array to store height values for the wave
+
+        function setup() {
+        createCanvas(710, 400);
+        w = width+16;
+        dx = (TWO_PI / period) * xspacing;
+        yvalues = new Array(floor(w/xspacing));
+        }
+
+        function draw() {
+        background(0);
+        calcWave();
+        renderWave();
+        }
+
+        function calcWave() {
+        // Increment theta (try different values for 
+        // 'angular velocity' here)
+        theta += 0.02;
+
+        // For every x value, calculate a y value with sine function
+        var x = theta;
+        for (var i = 0; i < yvalues.length; i++) {
+            yvalues[i] = sin(x)*amplitude;
+            x+=dx;
+        }
+        }
+
+        function renderWave() {
+        noStroke();
+        fill(255);
+        // A simple way to draw the wave with an ellipse at each location
+        for (var x = 0; x < yvalues.length; x++) {
+            ellipse(x*xspacing, height/2+yvalues[x], 16, 16);
+        }
+        }
+    </script>
 </html>
