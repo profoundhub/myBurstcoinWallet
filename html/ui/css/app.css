@@ -2105,7 +2105,8 @@ body > .header .logo .icon {
     Page: locked screen
 */
   .mainlockscreen { 
-    background: url(../img/Burst-2.jpg) no-repeat center center fixed; 
+    /* background: url(../img/Burst-bg-1.png) no-repeat center center fixed; */
+    background: url(https://i.supload.com/Skgp5mdn6l.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -3332,8 +3333,18 @@ hr {
   overflow:auto;
 }
 
+.burst-logo {
+    margin-bottom: 40px;
+    z-index: 999;
+    position: relative;
+    width: 25%;
+}
+
 #center .panel {
   display:inline-block;
+  z-index: 999;
+  position: relative;
+  top: -120px;
 }
 
 #center .panel-heading, #center .panel-body {
@@ -3532,4 +3543,36 @@ input.masked {
 
 #dgs_view_delivery_output, #dgs_view_purchase_modal_note, #dgs_delivery_modal_note, #dgs_view_refund_output, #transaction_info_output_top, #transaction_info_output_bottom {
   word-wrap:break-word;
+}
+
+audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline;
+    position: absolute;
+    top: -50px;
+    /* opacity: 0.5;
+    / filter: alpha(opacity=50); */
+    z-index: 9;
+}
+
+#bgDiv {
+  /*  */
+  width: 100%;
+  height: 1000px;
+  outline: 1px dotted gray;
+  margin: 0 auto;
+  /* no-repeat center center fixed */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  z-index: 99;
+  position: absolute;
+}
+
+.visibles {
+  z-index: 999;
 }
